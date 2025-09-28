@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart TempMail API: Generate and manage temporary email addresses for developers, testers, and privacy enthusiasts. Developed by Abir Arafat Chawdhury (@ISmartCoder).">
+    <meta name="keywords" content="Smart TempMail API, temporary email, disposable email, 10-minute mail, edu email, @ISmartCoder">
+    <meta name="author" content="Abir Arafat Chawdhury (@ISmartCoder)">
+    <title>Smart TempMail API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .hero {
+            background: linear-gradient(135deg, #ffffff, #e9ecef);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .hero .developer-credit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .hero .developer-credit img {
+            height: 40px;
+            margin-left: 10px;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-healthy {
+            background-color: #28a745;
+        }
+        .status-error {
+            background-color: #dc3545;
+        }
+        .docs-section {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+        .docs-section h3 {
+            color: #F0B90B;
+        }
+        .docs-section pre {
+            background-color: #f1f3f5;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .docs-section .accordion-button {
+            background-color: #F0B90B;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .docs-section .accordion-button:not(.collapsed) {
+            background-color: #d4a017;
+            color: #ffffff;
+        }
+        .docs-section .accordion-item {
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #e9ecef;
+        }
+        .btn-primary {
+            background-color: #F0B90B;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #d4a017;
+        }
+        .footer-social a {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .footer-social a:hover {
+            color: #F0B90B;
+        }
+        .footer-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #555;
+            margin-top: 1rem;
+        }
+        .footer-text strong {
+            color: #F0B90B;
+        }
+        .ad-section {
+            background-color: #ffffff;
+            padding: 2.5rem 0;
+            text-align: center;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #00C4B4;
+            transition: transform 0.3s ease;
+        }
+        .ad-section:hover {
+            transform: translateY(-3px);
+        }
+        .ad-section h2 {
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+            font-size: 1.8rem;
+        }
+        .ad-section p {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            margin-bottom: 1.25rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ad-section .btn {
+            background-color: #00C4B4;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .ad-section .btn:hover {
+            background-color: #00a89a;
+            transform: scale(1.03);
+        }
+        .ad-section .telegram-icon {
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="developer-credit">
+                <span><b>API Dev: Abir Arafat Chawdhury</b></span>
+                <img src="https://kurigram.live/assets/pyro.gif" alt="Pyro Animation">
+            </div>
+            <h1 class="display-4 fw-bold">Smart TempMail API</h1>
+            <p class="lead text-muted">Your gateway to generating and managing temporary email addresses, powered by @ISmartCoder.</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="mb-4">Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <i class="fas fa-envelope fa-2x mb-3" style="color: #F0B90B;"></i>
+                        <h4>Temporary Email</h4>
+                        <p>Create disposable email addresses for short-term use.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <i class="fas fa-clock fa-2x mb-3" style="color: #F0B90B;"></i>
+                        <h4>10-Minute Mail</h4>
+                        <p>Generate emails that expire after 10 minutes for quick tasks.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 text-center">
+                        <i class="fas fa-graduation-cap fa-2x mb-3" style="color: #F0B90B;"></i>
+                        <h4>Edu Email</h4>
+                        <p>Generate .edu email addresses for educational purposes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advertisement Section -->
+    <section class="ad-section">
+        <div class="container">
+            <h2>Need Custom Telegram Bots & APIs? 🧐</h2>
+            <p>Supercharge your projects with custom-built bots and APIs in Python, PHP, Node.js, and beyond. Partner with us to create innovative, high-performance solutions tailored to your needs.</p>
+            <a href="https://t.me/ISmartCoder" target="_blank" class="btn">
+                Connect with @ISmartCoder
+                <i class="fab fa-telegram telegram-icon"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="py-5">
+        <div class="container">
+            <h2 class="mb-4">API Documentation</h2>
+            <div class="card docs-section">
+                <div class="accordion" id="docsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="genHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#genCollapse">
+                                GET /api/gen
+                            </button>
+                        </h2>
+                        <div id="genCollapse" class="accordion-collapse collapse" data-bs-parent="#docsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Description:</strong> Generate a regular temporary email address.</p>
+                                <p><strong>Use Case:</strong> Create a disposable email for general use cases.</p>
+                                <p><strong>Parameters:</strong> None</p>
+                                <p><strong>Example Request:</strong></p>
+                                <pre>GET /api/gen</pre>
+                                <p><strong>Example Response:</strong></p>
+                                <pre>
+{
+  "api_owner": "@ISmartCoder",
+  "api_dev": "@WeSmartDevelopers",
+  "temp_mail": "example@temp-mail.org",
+  "access_token": "your-access-token",
+  "time_taken": "0.12s",
+  "expires_at": "N/A"
+}
+                                </pre>
+                                <p><strong>Response Fields:</strong></p>
+                                <ul>
+                                    <li><code>api_owner</code>: API creator handle.</li>
+                                    <li><code>api_dev</code>: Developer team handle.</li>
+                                    <li><code>temp_mail</code>: Generated email address.</li>
+                                    <li><code>access_token</code>: Token to check messages.</li>
+                                    <li><code>time_taken</code>: Time to generate email.</li>
+                                    <li><code>expires_at</code>: Expiration time (N/A for regular emails).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="chkHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#chkCollapse">
+                                GET /api/chk?token={token}
+                            </button>
+                        </h2>
+                        <div id="chkCollapse" class="accordion-collapse collapse" data-bs-parent="#docsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Description:</strong> Check messages for a regular temporary email using the provided token.</p>
+                                <p><strong>Use Case:</strong> Retrieve emails received by the generated temporary email.</p>
+                                <p><strong>Parameters:</strong></p>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>token</code></td>
+                                            <td>String</td>
+                                            <td>Access token from /api/gen response.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p><strong>Example Request:</strong></p>
+                                <pre>GET /api/chk?token=your-access-token</pre>
+                                <p><strong>Example Response:</strong></p>
+                                <pre>
+{
+  "mailbox": "example@temp-mail.org",
+  "messages": [
+    {
+      "from": "sender@example.com",
+      "subject": "Test Email",
+      "body": "This is a test email.",
+      "receivedAt": "2025-09-13 21:03:00",
+      "api_dev": "@ISmartCoder",
+      "api_updates": "@WeSmartDevelopers"
+    }
+  ],
+  "api_owner": "@ISmartCoder",
+  "api_dev": "@WeSmartDevelopers"
+}
+                                </pre>
+                                <p><strong>Response Fields:</strong></p>
+                                <ul>
+                                    <li><code>mailbox</code>: Email address.</li>
+                                    <li><code>messages</code>: Array of received messages.</li>
+                                    <li><code>api_owner</code>: API creator handle.</li>
+                                    <li><code>api_dev</code>: Developer team handle.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="tenMinGenHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tenMinGenCollapse">
+                                GET /api/10min/gen
+                            </button>
+                        </h2>
+                        <div id="tenMinGenCollapse" class="accordion-collapse collapse" data-bs-parent="#docsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Description:</strong> Generate a 10-minute temporary email address.</p>
+                                <p><strong>Use Case:</strong> Create a short-lived email for quick tasks.</p>
+                                <p><strong>Parameters:</strong> None</p>
+                                <p><strong>Example Request:</strong></p>
+                                <pre>GET /api/10min/gen</pre>
+                                <p><strong>Example Response:</strong></p>
+                                <pre>
+{
+  "api_owner": "@ISmartCoder",
+  "api_dev": "@WeSmartDevelopers",
+  "temp_mail": "example@10minutemail.com",
+  "access_token": "your-access-token",
+  "time_taken": "0.15s",
+  "expires_at": "2025-09-13 21:13:00"
+}
+                                </pre>
+                                <p><strong>Response Fields:</strong></p>
+                                <ul>
+                                    <li><code>api_owner</code>: API creator handle.</li>
+                                    <li><code>api_dev</code>: Developer team handle.</li>
+                                    <li><code>temp_mail</code>: Generated email address.</li>
+                                    <li><code>access_token</code>: Token to check messages.</li>
+                                    <li><code>time_taken</code>: Time to generate email.</li>
+                                    <li><code>expires_at</code>: Email expiration time.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="tenMinChkHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tenMinChkCollapse">
+                                GET /api/10min/chk?token={token}
+                            </button>
+                        </h2>
+                        <div id="tenMinChkCollapse" class="accordion-collapse collapse" data-bs-parent="#docsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Description:</strong> Check messages for a 10-minute temporary email using the provided token.</p>
+                                <p><strong>Use Case:</strong> Retrieve emails received by the 10-minute email.</p>
+                                <p><strong>Parameters:</strong></p>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>token</code></td>
+                                            <td>String</td>
+                                            <td>Access token from /api/10min/gen response.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p><strong>Example Request:</strong></p>
+                                <pre>GET /api/10min/chk?token=your-access-token</pre>
+                                <p><strong>Example Response:</strong></p>
+                                <pre>
+{
+  "mailbox": "example@10minutemail.com",
+  "messages": [
+    {
+      "from": "sender@example.com",
+      "subject": "Test Email",
+      "body": "This is a test email.",
+      "receivedAt": "2025-09-13 21:03:00",
+      "api_dev": "@ISmartCoder",
+      "api_updates": "@WeSmartDevelopers"
+    }
+  ],
+  "api_owner": "@ISmartCoder",
+  "api_dev": "@WeSmartDevelopers"
+}
+                                </pre>
+                                <p><strong>Response Fields:</strong></p>
+                                <ul>
+                                    <li><code>mailbox</code>: Email address.</li>
+                                    <li><code>messages</code>: Array of received messages.</li>
+                                    <li><code>api_owner</code>: API creator handle.</li>
+                                    <li><code>api_dev</code>: Developer team handle.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="eduGenHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#eduGenCollapse">
+                                GET /api/edu/gen
+                            </button>
+                        </h2>
+                        <div id="eduGenCollapse" class="accordion-collapse collapse" data-bs-parent="#docsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Description:</strong> Generate an .edu email address.</p>
+                                <p><strong>Use Case:</strong> Create an educational email for specific use cases.</p>
+                                <p><strong>Parameters:</strong> None</p>
+                                <p><strong>Example Request:</strong></p>
+                                <pre>GET /api/edu/gen</pre>
+                                <p><strong>Example Response:</strong></p>
+                                <pre>
+{
+  "api_owner": "@ISmartCoder",
+  "api_dev": "@TheSmartDev",
+  "edu_mail": "example@edu.etempmail.com",
+  "access_token": "your-access-token"
+}
+                                </pre>
+                                <p><strong>Response Fields:</strong></p>
+                                <ul>
+                                    <li><code>api_owner</code>: API creator handle.</li>
+                                    <li><code>api_dev</code>: Developer team handle.</li>
+                                    <li><code>edu_mail</code>: Generated .edu email address.</li>
+                                    <li><code>access_token</code>: Token to check messages.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="eduChkHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#eduChkCollapse">
+                                GET /api/edu/chk?token={token}
+                            </button>
+                        </h2>
+                        <div id="eduChkCollapse" class="accordion-collapse collapse" data-bs-parent="#docsAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Description:</strong> Check messages for an .edu email using the provided token.</p>
+                                <p><strong>Use Case:</strong> Retrieve emails received by the .edu email.</p>
+                                <p><strong>Parameters:</strong></p>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>token</code></td>
+                                            <td>String</td>
+                                            <td>Access token from /api/edu/gen response.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p><strong>Example Request:</strong></p>
+                                <pre>GET /api/edu/chk?token=your-access-token</pre>
+                                <p><strong>Example Response:</strong></p>
+                                <pre>
+{
+  "api_owner": "@ISmartCoder",
+  "api_dev": "@TheSmartDev",
+  "edu_mail": "example@edu.etempmail.com",
+  "access_token": "your-access-token",
+  "messages": [
+    {
+      "From": "sender@example.com",
+      "Subject": "Welcome to Edu Mail",
+      "Date": "2025-09-13",
+      "body": "This is the email body.",
+      "Message": "This is the email body."
+    }
+  ],
+  "Message": "This is the email body.",
+  "From": "sender@example.com",
+  "body": "This is the email body.",
+  "Date": "2025-09-13",
+  "Subject": "Welcome to Edu Mail"
+}
+                                </pre>
+                                <p><strong>Response Fields:</strong></p>
+                                <ul>
+                                    <li><code>api_owner</code>: API creator handle.</li>
+                                    <li><code>api_dev</code>: Developer team handle.</li>
+                                    <li><code>edu_mail</code>: Email address.</li>
+                                    <li><code>access_token</code>: Token used for the request.</li>
+                                    <li><code>messages</code>: Array of received messages.</li>
+                                    <li><code>Message, From, body, Date, Subject</code>: Details of the latest message (if any).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4">
+                    Developed with ❤️ By @ISmartCoder
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <div class="footer-social mb-3">
+                <a href="https://github.com/TheSmartDevs" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/abirxdhackz" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/abirxdhackz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/abirxdhackz" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://youtube.com/@abirxdhackz" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://t.me/ISmartCoder" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            </div>
+            <p class="footer-text">
+                Crafted with <strong>passion</strong> by <a href="https://t.me/ISmartCoder" target="_blank">@ISmartCoder</a> | Join our <strong>community</strong>: <a href="https://t.me/TheSmartDev" target="_blank">t.me/TheSmartDev</a>
+            </p>
+            <p class="text-muted mt-2">© 2025 Smart TempMail API. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
